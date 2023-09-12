@@ -14,4 +14,27 @@ Then, existing code of CLIPasso - https://github.com/yael-vinker/CLIPasso, I hav
 
 It will fetches front and side sketch and performs operation to generate 3D sketch.
 
+----------------------
+
+Changes made in existing code files :
+
+-- painterly_rendering.py
+
+This Code added to store the final sketch at desired folder to fetch it to generate 3D sketch.
+
+# Check if it's the last epoch
+        if epoch == args.num_iter - 1:
+
+            abs_path = os.path.abspath(os.getcwd())
+
+            target = f"{abs_path}/Final_sketches"
+
+            words_to_check = ['front', '30degree', 'side']
+
+            # Find the word that matches in args.output_dir
+            found_word = next((word for word in words_to_check if word in args.output_dir), None)
+
+            desired_location = f"{abs_path}/Final_sketches"  # Replace with your path
+            utils.plot_batch(inputs, sketches, desired_location, counter,
+                             use_wandb=args.use_wandb, title=f"{found_word}_sketch.jpg")
 
